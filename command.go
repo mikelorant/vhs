@@ -41,6 +41,7 @@ var CommandTypes = []CommandType{ //nolint: deadcode
 }
 
 const esc = '\x1b'
+const enter = '\r'
 
 // String returns the string representation of the command.
 func (c CommandType) String() string {
@@ -147,6 +148,10 @@ func ExecuteCtrl(c Command, v *VHS) {
 // ExecuteAlt is a CommandFunc that presses the argument key with the alt key
 // held down on the running instance of vhs.
 func ExecuteAlt(c Command, v *VHS) {
+	if c.Args == "ENTER" {
+		c.Args = string(enter)
+	}
+	
 	for _, r := range c.Args {
 		k := []rune{esc, unicode.ToLower(r)}
 		_ = v.Page.InsertText(string(k))
