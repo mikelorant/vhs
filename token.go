@@ -29,6 +29,7 @@ const (
 	SPACE          = "SPACE"
 	BACKSPACE      = "BACKSPACE"
 	CTRL           = "CTRL"
+	ALT            = "ALT"
 	ENTER          = "ENTER"
 	NUMBER         = "NUMBER"
 	SET            = "SET"
@@ -84,6 +85,7 @@ var keywords = map[string]TokenType{
 	"Space":         SPACE,
 	"Backspace":     BACKSPACE,
 	"Ctrl":          CTRL,
+	"Alt":           ALT,
 	"Down":          DOWN,
 	"Left":          LEFT,
 	"Right":         RIGHT,
@@ -130,7 +132,7 @@ func IsCommand(t TokenType) bool {
 	case TYPE, SLEEP,
 		UP, DOWN, RIGHT, LEFT, PAGEUP, PAGEDOWN,
 		ENTER, BACKSPACE, DELETE, TAB,
-		ESCAPE, HOME, INSERT, END, CTRL:
+		ESCAPE, HOME, INSERT, END, CTRL, ALT:
 		return true
 	default:
 		return false

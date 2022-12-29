@@ -30,6 +30,7 @@ The following is a list of all possible commands in VHS:
 * %Sleep% <time>
 * %Type% "<string>"
 * %Ctrl%+<key>
+* %Alt%+<key>
 * %Backspace% [repeat]
 * %Down% [repeat]
 * %Enter% [repeat]

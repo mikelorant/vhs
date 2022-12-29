@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"unicode"
 
 	"github.com/go-rod/rod/lib/input"
 )
@@ -18,6 +19,7 @@ type CommandType TokenType
 var CommandTypes = []CommandType{ //nolint: deadcode
 	BACKSPACE,
 	CTRL,
+	ALT,
 	DOWN,
 	ENTER,
 	ESCAPE,
@@ -37,6 +39,8 @@ var CommandTypes = []CommandType{ //nolint: deadcode
 	TYPE,
 	UP,
 }
+
+const esc = '\x1b'
 
 // String returns the string representation of the command.
 func (c CommandType) String() string {
@@ -72,6 +76,7 @@ var CommandFuncs = map[CommandType]CommandFunc{
 	SLEEP:     ExecuteSleep,
 	TYPE:      ExecuteType,
 	CTRL:      ExecuteCtrl,
+	ALT:       ExecuteAlt,
 	ILLEGAL:   ExecuteNoop,
 }
 
@@ -137,6 +142,15 @@ func ExecuteCtrl(c Command, v *VHS) {
 		}
 	}
 	_ = v.Page.Keyboard.Release(input.ControlLeft)
+}
+
+// ExecuteAlt is a CommandFunc that presses the argument key with the alt key
+// held down on the running instance of vhs.
+func ExecuteAlt(c Command, v *VHS) {
+	for _, r := range c.Args {
+		k := []rune{esc, unicode.ToLower(r)}
+		_ = v.Page.InsertText(string(k))
+	}
 }
 
 // ExecuteHide is a CommandFunc that starts or stops the recording of the vhs.

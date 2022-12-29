@@ -32,6 +32,42 @@ var EscapeSequences = map[string]string{
 	"\x1b[4~": END,
 	"\x1b[5~": PAGEUP,
 	"\x1b[6~": PAGEDOWN,
+	"\x1b1":   ALT + "+1",
+	"\x1b2":   ALT + "+2",
+	"\x1b3":   ALT + "+3",
+	"\x1b4":   ALT + "+4",
+	"\x1b5":   ALT + "+5",
+	"\x1b6":   ALT + "+6",
+	"\x1b7":   ALT + "+7",
+	"\x1b8":   ALT + "+8",
+	"\x1b9":   ALT + "+9",
+	"\x1b0":   ALT + "+0",
+	"\x1ba":   ALT + "+A",
+	"\x1bb":   ALT + "+B",
+	"\x1bc":   ALT + "+C",
+	"\x1bd":   ALT + "+D",
+	"\x1be":   ALT + "+E",
+	"\x1bf":   ALT + "+F",
+	"\x1bg":   ALT + "+G",
+	"\x1bh":   ALT + "+H",
+	"\x1bi":   ALT + "+I",
+	"\x1bj":   ALT + "+J",
+	"\x1bk":   ALT + "+K",
+	"\x1bl":   ALT + "+L",
+	"\x1bm":   ALT + "+M",
+	"\x1bn":   ALT + "+N",
+	"\x1bo":   ALT + "+O",
+	"\x1bp":   ALT + "+P",
+	"\x1bq":   ALT + "+Q",
+	"\x1br":   ALT + "+R",
+	"\x1bs":   ALT + "+S",
+	"\x1bt":   ALT + "+T",
+	"\x1bu":   ALT + "+U",
+	"\x1bv":   ALT + "+V",
+	"\x1bw":   ALT + "+W",
+	"\x1bx":   ALT + "+X",
+	"\x1by":   ALT + "+Y",
+	"\x1bz":   ALT + "+Z",
 	"\x01":    CTRL + "+A",
 	"\x02":    CTRL + "+B",
 	"\x03":    CTRL + "+C",
@@ -156,6 +192,11 @@ func inputToTape(input string) string {
 		} else if strings.HasPrefix(lines[i], CTRL) {
 			for j := 0; j < repeat; j++ {
 				sanitized.WriteString("Ctrl" + strings.TrimPrefix(lines[i], CTRL) + "\n")
+			}
+			continue
+		} else if strings.HasPrefix(lines[i], ALT) {
+			for j := 0; j < repeat; j++ {
+				sanitized.WriteString("Alt" + strings.TrimPrefix(lines[i], ALT) + "\n")
 			}
 			continue
 		} else if IsCommand(TokenType(lines[i])) {

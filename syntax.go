@@ -37,6 +37,8 @@ func (c Command) Highlight(faint bool) string {
 		argsStyle = StringStyle
 	case CTRL:
 		argsStyle = CommandStyle
+	case ALT:
+		argsStyle = AltStyle
 	case SLEEP:
 		argsStyle = TimeStyle
 	case TYPE:
