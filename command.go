@@ -36,6 +36,7 @@ var CommandTypes = []CommandType{ //nolint: deadcode
 	REQUIRE,
 	SHOW,
 	TAB,
+	SHIFTTAB,
 	TYPE,
 	UP,
 }
@@ -66,6 +67,7 @@ var CommandFuncs = map[CommandType]CommandFunc{
 	SPACE:     ExecuteKey(input.Space),
 	UP:        ExecuteKey(input.ArrowUp),
 	TAB:       ExecuteKey(input.Tab),
+	SHIFTTAB:  ExecuteShiftTab,
 	ESCAPE:    ExecuteKey(input.Escape),
 	PAGEUP:    ExecuteKey(input.PageUp),
 	PAGEDOWN:  ExecuteKey(input.PageDown),
@@ -156,6 +158,12 @@ func ExecuteAlt(c Command, v *VHS) {
 		k := []rune{esc, unicode.ToLower(r)}
 		_ = v.Page.InsertText(string(k))
 	}
+}
+
+func ExecuteShiftTab(c Command, v *VHS) {
+	_ = v.Page.Keyboard.Press(input.ShiftLeft)
+	_ = v.Page.Keyboard.Type(input.Tab)
+	_ = v.Page.Keyboard.Release(input.ShiftLeft)
 }
 
 // ExecuteHide is a CommandFunc that starts or stops the recording of the vhs.

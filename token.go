@@ -42,6 +42,7 @@ const (
 	RIGHT          = "RIGHT"
 	UP             = "UP"
 	TAB            = "TAB"
+	SHIFTTAB       = "SHIFTTAB"
 	ESCAPE         = "ESCAPE"
 	DELETE         = "DELETE"
 	HOME           = "HOME"
@@ -93,6 +94,7 @@ var keywords = map[string]TokenType{
 	"PageUp":        PAGEUP,
 	"PageDown":      PAGEDOWN,
 	"Tab":           TAB,
+	"ShiftTab":      SHIFTTAB,
 	"Escape":        ESCAPE,
 	"End":           END,
 	"Hide":          HIDE,
@@ -131,7 +133,7 @@ func IsCommand(t TokenType) bool {
 	switch t {
 	case TYPE, SLEEP,
 		UP, DOWN, RIGHT, LEFT, PAGEUP, PAGEDOWN,
-		ENTER, BACKSPACE, DELETE, TAB,
+		ENTER, BACKSPACE, DELETE, TAB, SHIFTTAB,
 		ESCAPE, HOME, INSERT, END, CTRL, ALT:
 		return true
 	default:
